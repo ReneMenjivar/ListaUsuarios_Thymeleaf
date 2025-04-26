@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuarios</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            padding: 30px 40px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: #4f6ef7;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        .placeholder {
+            color: #b0b0b0;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            table, thead, tbody, th, td, tr {
+                display: block;
+            }
+
+            th {
+                display: none;
+            }
+
+            td {
+                position: relative;
+                padding-left: 50%;
+            }
+
+            td::before {
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                width: 45%;
+                font-weight: bold;
+                white-space: nowrap;
+                color: #555;
+            }
+
+            td:nth-of-type(1)::before { content: "Nombre"; }
+            td:nth-of-type(2)::before { content: "Apellido"; }
+            td:nth-of-type(3)::before { content: "Correo"; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Lista de Usuarios</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${usuarios}">
+                    <td th:text="${usuario.nombre}">Nombre</td>
+                    <td th:text="${usuario.apellido}">Apellido</td>
+                    <td>
+                        <span th:if="${usuario.correo != null}" th:text="${usuario.correo}">correo@example.com</span>
+                        <span th:if="${usuario.correo == null}" class="placeholder">--------</span>
+                    </td>
+                </tr>
+                <tr th:if="${usuarios.size() == 0}">
+                    <td colspan="3" style="text-align:center; color: #888;">No hay usuarios disponibles</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
